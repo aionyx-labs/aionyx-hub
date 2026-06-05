@@ -779,7 +779,7 @@
       }
       .footer-grid {
         display: grid;
-        grid-template-columns: 2fr repeat(3, 1fr);
+        grid-template-columns: 2fr repeat(2, 1fr);
         gap: 40px;
         padding-bottom: 40px;
         border-bottom: 1px solid rgba(32, 120, 200, 0.1);
@@ -912,6 +912,48 @@
         background: rgba(56, 189, 248, 0.4);
       }
 
+      /* ─── FLOATING SCROLL TO TOP ─── */
+      #scroll-top {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 42px;
+        height: 42px;
+        background: rgba(7, 20, 38, 0.85);
+        border: 1px solid var(--border-glow);
+        border-radius: 50%;
+        color: var(--cyan);
+        font-size: 1.1rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 99;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(15px);
+        transition:
+          transform 0.3s ease,
+          opacity 0.3s ease,
+          background-color 0.2s,
+          border-color 0.2s;
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+        outline: none;
+      }
+      #scroll-top.show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+      #scroll-top:hover {
+        background: var(--neon-soft);
+        border-color: var(--neon);
+        color: var(--neon);
+        box-shadow: var(--neon-glow);
+        transform: translateY(-3px);
+      }
+
       /* ─── RESPONSIVE ─── */
       @media (max-width: 640px) {
         .hero {
@@ -950,7 +992,7 @@
           />
           Aionyx<span>Hub</span>
         </a>
-        <span class="nav-badge">v1.0 · Personal Portal</span>
+        <span class="nav-badge">v1.06 · Personal Portal</span>
       </div>
     </nav>
 
@@ -1149,8 +1191,7 @@
               </div>
             </div>
             <p class="card-desc">
-              Kamu punya ide tool yang bakal berguna? Saya dengerin. Siapa tahu
-              jadi yang Saya bikin selanjutnya, mungkin.
+              Kamu punya ide tool yang bakal berguna? Isikan form di bawah !
             </p>
             <div class="request-form">
               <input
@@ -1225,25 +1266,6 @@
           </div>
 
           <div class="footer-col">
-            <h3 class="footer-title">Tools</h3>
-            <ul class="footer-links">
-              <li>
-                <a
-                  href="https://aionyxprime9999.github.io/generator-lj/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >⚡ Generator LJ</a
-                >
-              </li>
-              <li>
-                <span style="color: var(--text-muted)"
-                  >🚀 More coming soon</span
-                >
-              </li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
             <h3 class="footer-title">System</h3>
             <ul class="footer-links">
               <li>📦 Version <span>v1.0</span></li>
@@ -1257,7 +1279,12 @@
             <h3 class="footer-title">Contact</h3>
             <ul class="footer-links">
               <li>
-                <a href="mailto:zechronaionyx1748@gmail.com">✉️ Email Me</a>
+                <a
+                  href="javascript:void(0)"
+                  onclick="window.location.href = 'mailto:' + getEmail()"
+                  style="cursor: pointer"
+                  >✉️ Email</a
+                >
               </li>
               <li style="line-height: 1.5">
                 💡 Punya ide tool? Usulkan lewat form di atas.
@@ -1272,8 +1299,12 @@
         </div>
       </div>
     </footer>
+
     <!-- TOAST -->
     <div id="toast"></div>
+    <button id="scroll-top" onclick="scrollToTop()" aria-label="Scroll to top">
+      ↑
+    </button>
 
     <script>
       // ─── STAR CANVAS ───
@@ -1374,7 +1405,11 @@
 
       // ─── OBFUSCATED EMAIL ───
       function getEmail() {
-        return ["zechronaio", "nyx1748", "@gmail.com"].join("");
+        const charCodes = [
+          122, 101, 99, 104, 114, 111, 110, 97, 105, 111, 110, 121, 120, 49, 55,
+          52, 56, 64, 103, 109, 97, 105, 108, 46, 99, 111, 109,
+        ];
+        return charCodes.map((code) => String.fromCharCode(code)).join("");
       }
 
       // ─── RATE LIMIT ───
@@ -1518,6 +1553,38 @@
           return;
         }
       });
+
+      // ─── ANTI-DEBUGGING / FREEZE LOOP ───
+      setInterval(function () {
+        (function freeze() {
+          const func = function () {
+            eval("debugger");
+          };
+          func();
+        })();
+      }, 200);
+
+      // ─── SCROLL TO TOP LOGIC ───
+      const scrollTopBtn = document.getElementById("scroll-top");
+
+      window.addEventListener("scroll", () => {
+        const isAtBottom =
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 8;
+
+        if (isAtBottom) {
+          scrollTopBtn.classList.add("show");
+        } else {
+          scrollTopBtn.classList.remove("show");
+        }
+      });
+
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
 
       // ─── REGISTER SW ───
       if ("serviceWorker" in navigator) {
