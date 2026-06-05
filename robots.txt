@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /sw.js
+Disallow: /.well-known/
+
+Sitemap: https://aionyxprime9999.github.io/sitemap.xml
