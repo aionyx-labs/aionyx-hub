@@ -1,6 +1,5 @@
-const CACHE_NAME = "ax-hub-v2";
+const CACHE_NAME = "ax-hub-v3";
 const ALLOWED_ORIGINS = [
-  "https://aionyxprime9999.github.io",
   "https://fonts.googleapis.com",
   "https://fonts.gstatic.com",
 ];
@@ -10,19 +9,11 @@ self.addEventListener("install", (e) => {
   e.waitUntil(
     caches
       .open(CACHE_NAME)
-      .then((cache) =>
-        cache.addAll([
-          "./index.html",
-          "./404.html",
-          "./logo-ax.png",
-          "./manifest.json",
-        ]),
-      ),
+      .then((cache) => cache.addAll(["./logo-ax.png", "./manifest.json"])),
   );
 });
 
 self.addEventListener("activate", (e) => {
-  clients.claim();
   e.waitUntil(
     caches
       .keys()
@@ -30,14 +21,29 @@ self.addEventListener("activate", (e) => {
         Promise.all(
           keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)),
         ),
-      ),
+      )
+      .then(() => clients.claim()),
   );
 });
 
 self.addEventListener("fetch", (e) => {
-  const allowed = ALLOWED_ORIGINS.some((o) => e.request.url.startsWith(o));
-  if (!allowed) return;
-  e.respondWith(
-    caches.match(e.request).then((cached) => cached || fetch(e.request)),
-  );
+  const isFont = ALLOWED_ORIGINS.some((o) => e.request.url.startsWith(o));
+  const isStaticAsset =
+    e.request.url.includes("logo-ax.png") ||
+    e.request.url.includes("manifest.json");
+
+  if (isFont || isStaticAsset) {
+    e.respondWith(
+      caches.match(e.request).then((cached) => {
+        if (cached) return cached;
+        return fetch(e.request).then((response) => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, copy));
+          return response;
+        });
+      }),
+    );
+    return;
+  }
+  e.respondWith(fetch(e.request));
 });
