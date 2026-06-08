@@ -14,11 +14,11 @@
       content="Kumpulan Web Tools. Simple, useful, dan terus bertambah."
     />
     <meta property="og:image" content="./logo-ax.png" />
-    <link rel="icon" type="image/png" href="./logo-ax.png" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
     <link rel="manifest" href="./manifest.json" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://mail.google.com;"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://mail.google.com;"
     />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
@@ -58,6 +58,76 @@
         --font-display: "Poppins", sans-serif;
         --font-body: "Poppins", sans-serif;
         --font-mono: "Poppins", sans-serif;
+      }
+
+      [data-theme="light"] {
+        --void: #f0f5ff;
+        --deep: #e4ecf7;
+        --surface: #dce6f5;
+        --card: #ffffff;
+        --card-hover: #eef3fc;
+        --border: rgba(14, 100, 180, 0.15);
+        --border-glow: rgba(14, 120, 200, 0.35);
+        --cyan: #0077cc;
+        --cyan-bright: #005fa3;
+        --cyan-dim: #0ea5e9;
+        --neon: #0090cc;
+        --neon-soft: rgba(0, 144, 204, 0.1);
+        --neon-glow:
+          0 0 20px rgba(0, 144, 204, 0.25), 0 0 60px rgba(0, 144, 204, 0.1);
+        --text: #0d1f35;
+        --text-dim: #2a5070;
+        --text-muted: #7a9ab8;
+        --accent: #cfe0f5;
+      }
+      [data-theme="light"] nav {
+        background: rgba(240, 245, 255, 0.75);
+        border-bottom-color: rgba(14, 100, 180, 0.12);
+      }
+      [data-theme="light"] .request-input,
+      [data-theme="light"] .request-textarea {
+        background: #f5f8ff;
+        border-color: rgba(139, 92, 246, 0.25);
+        color: #0d1f35;
+      }
+      [data-theme="light"] .request-input::placeholder,
+      [data-theme="light"] .request-textarea::placeholder {
+        color: #7a9ab8;
+      }
+      [data-theme="light"] footer {
+        background: linear-gradient(to top, rgba(220, 230, 245, 0.6), transparent);
+        border-top-color: rgba(14, 100, 180, 0.12);
+      }
+      [data-theme="light"] .tech-badge {
+        background: rgba(255, 255, 255, 0.7);
+        border-color: rgba(14, 100, 180, 0.15);
+        color: #2a5070;
+      }
+      [data-theme="light"] #toast {
+        background: rgba(240, 245, 255, 0.97);
+        border-color: rgba(0, 144, 204, 0.3);
+        color: #005fa3;
+      }
+      [data-theme="light"] #scroll-top {
+        background: rgba(240, 245, 255, 0.9);
+        color: #0077cc;
+      }
+      [data-theme="light"] .search-input {
+        background: rgba(255, 255, 255, 0.8);
+        border-color: rgba(14, 100, 180, 0.3);
+        color: #0d1f35;
+      }
+      [data-theme="light"] .search-wrapper:focus-within .search-input {
+        background: #ffffff;
+        border-color: #0077cc;
+      }
+      [data-theme="light"] .btn-ghost {
+        border-color: rgba(14, 100, 180, 0.2);
+        color: #7a9ab8;
+      }
+      [data-theme="light"] .card-request {
+        background: rgba(139, 92, 246, 0.04);
+        border-color: rgba(139, 92, 246, 0.2);
       }
 
       *,
@@ -248,6 +318,26 @@
         padding: 4px 10px;
         border-radius: 100px;
         letter-spacing: 0.05em;
+      }
+      #theme-toggle {
+        background: var(--card);
+        border: 1px solid var(--border-glow);
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background 0.3s, border-color 0.3s, transform 0.2s;
+        outline: none;
+        flex-shrink: 0;
+      }
+      #theme-toggle:hover {
+        background: var(--card-hover);
+        border-color: var(--neon);
+        transform: rotate(20deg) scale(1.1);
       }
 
       /* ─── HERO ─── */
@@ -1063,7 +1153,10 @@
           />
           Aionyx<span>Hub</span>
         </a>
-        <span class="nav-badge">v1.07 · Personal Portal</span>
+        <span class="nav-badge">v1.08 · Personal Portal</span>
+        <button id="theme-toggle" aria-label="Toggle theme">
+          <span id="theme-icon">☀️</span>
+        </button>
       </div>
     </nav>
 
@@ -1093,7 +1186,7 @@
           />
           <button
             class="search-icon-btn"
-            onclick="document.getElementById('search-input').focus()"
+            id="search-icon-btn"
             aria-label="Search"
           >
             <svg
@@ -1290,7 +1383,6 @@
               <button
                 class="btn-request"
                 id="btn-request"
-                onclick="submitRequest()"
               >
                 <svg
                   width="15"
@@ -1339,7 +1431,7 @@
           <div class="footer-col">
             <h3 class="footer-title">System</h3>
             <ul class="footer-links">
-              <li>📦 Version <span>v1.07</span></li>
+              <li>📦 Version <span>v1.08</span></li>
               <li>🛠 Status <span style="color: var(--cyan)">Active</span></li>
               <li>🌐 Independent Host</li>
               <li>🔒 No Trackers / Ads</li>
@@ -1352,7 +1444,7 @@
               <li>
                 <a
                   href="javascript:void(0)"
-                  onclick="window.location.href = 'mailto:' + getEmail()"
+                  id="email-link"
                   style="cursor: pointer"
                   >✉️ Email Me</a
                 >
@@ -1398,294 +1490,11 @@
 
     <!-- TOAST -->
     <div id="toast"></div>
-    <button id="scroll-top" onclick="scrollToTop()" aria-label="Scroll to top">
+    <button id="scroll-top" aria-label="Scroll to top">
       ↑
     </button>
 
-    <script>
-      // ─── STAR CANVAS ───
-      const canvas = document.getElementById("bg-canvas");
-      const ctx = canvas.getContext("2d");
-      let stars = [];
-
-      function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-
-      function initStars() {
-        stars = [];
-        const count = Math.floor((canvas.width * canvas.height) / 18000);
-        for (let i = 0; i < count; i++) {
-          stars.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            r: Math.random() * 1.2 + 0.1,
-            a: Math.random(),
-            da: (Math.random() - 0.5) * 0.002,
-            speed: Math.random() * 0.008 + 0.002,
-          });
-        }
-      }
-
-      function drawStars() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        stars.forEach((s) => {
-          s.a += s.da;
-          if (s.a > 1 || s.a < 0) s.da *= -1;
-          s.y += s.speed;
-          if (s.y > canvas.height) {
-            s.y = 0;
-            s.x = Math.random() * canvas.width;
-          }
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${s.r > 0.8 ? "180,230,255" : "100,180,230"},${s.a * 0.7})`;
-          ctx.fill();
-        });
-        requestAnimationFrame(drawStars);
-      }
-
-      resizeCanvas();
-      initStars();
-      drawStars();
-      window.addEventListener("resize", () => {
-        resizeCanvas();
-        initStars();
-      });
-
-      // ─── CARD MOUSE GLOW ───
-      document.querySelectorAll(".card").forEach((card) => {
-        card.addEventListener("mousemove", (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1);
-          const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1);
-          card.style.setProperty("--mx", x + "%");
-          card.style.setProperty("--my", y + "%");
-        });
-      });
-
-      // ─── SEARCH & LIVE COUNTER LOGIC ───
-      const searchInput = document.getElementById("search-input");
-      const wrappers = document.querySelectorAll(".card-wrapper");
-      const emptyState = document.getElementById("empty-state");
-      const activeCountSpan = document.getElementById("active-count");
-
-      function updateDynamicCounter() {
-        const visibleReadyTools = [...wrappers].filter((w) => {
-          const isHidden = w.classList.contains("hidden");
-          const isLive = w.querySelector(".status-live");
-          return !isHidden && isLive;
-        }).length;
-
-        if (activeCountSpan) activeCountSpan.textContent = visibleReadyTools;
-      }
-      updateDynamicCounter();
-
-      // ─── TOAST ───
-      function showToast(msg) {
-        const t = document.getElementById("toast");
-        t.textContent = msg;
-        t.classList.add("show");
-        setTimeout(() => t.classList.remove("show"), 3000);
-      }
-
-      // ─── SANITIZE ───
-      function sanitizeInput(str) {
-        return str
-          .replace(/[<>'"]/g, "")
-          .replace(/javascript:/gi, "")
-          .replace(/on\w+=/gi, "")
-          .trim();
-      }
-
-      // ─── OBFUSCATED EMAIL ───
-      function getEmail() {
-        const charCodes = [
-          122, 101, 99, 104, 114, 111, 110, 97, 105, 111, 110, 121, 120, 49, 55,
-          52, 56, 64, 103, 109, 97, 105, 108, 46, 99, 111, 109,
-        ];
-        return charCodes.map((code) => String.fromCharCode(code)).join("");
-      }
-
-      // ─── RATE LIMIT ───
-      let lastSubmit = 0;
-      const COOLDOWN = 30000;
-
-      // ─── REQUEST SUBMIT ───
-      function submitRequest() {
-        const hp = document.getElementById("req-hp").value;
-        if (hp) return;
-
-        const now = Date.now();
-        if (now - lastSubmit < COOLDOWN) {
-          const sisa = Math.ceil((COOLDOWN - (now - lastSubmit)) / 1000);
-          showToast(`⏳ Tunggu ${sisa} detik lagi ya...`);
-          return;
-        }
-
-        const name = sanitizeInput(
-          document.getElementById("req-name").value,
-        ).substring(0, 80);
-        const desc = sanitizeInput(
-          document.getElementById("req-desc").value,
-        ).substring(0, 500);
-
-        if (!name) {
-          showToast("⚠ Nama tool-nya diisi dulu dong...");
-          return;
-        }
-
-        const subject = encodeURIComponent("💡 Usulan Tool Baru: " + name);
-        const body = encodeURIComponent(
-          "Halo Zech!\n\nAku punya ide tool baru buat Aionyx Hub:\n\n" +
-            "📌 Nama Tool: " +
-            name +
-            "\n\n" +
-            "📝 Deskripsi:\n" +
-            (desc || "(tidak diisi)") +
-            "\n\n" +
-            "— Dikirim dari Aionyx Hub",
-        );
-
-        window.open(
-          "https://mail.google.com/mail/?view=cm&to=" +
-            getEmail() +
-            "&su=" +
-            subject +
-            "&body=" +
-            body,
-          "_blank",
-          "noopener,noreferrer",
-        );
-
-        document.getElementById("req-name").value = "";
-        document.getElementById("req-desc").value = "";
-        lastSubmit = Date.now();
-
-        const btn = document.getElementById("btn-request");
-        const label = document.getElementById("btn-request-label");
-        btn.disabled = true;
-        label.textContent = "Terkirim ✓";
-        setTimeout(() => {
-          btn.disabled = false;
-          label.textContent = "Kirim Usulan";
-        }, COOLDOWN);
-
-        showToast("✓ Gmail terbuka — tinggal klik Kirim!");
-      }
-
-      // ─── ENTER on request ───
-      document.getElementById("req-desc").addEventListener("keydown", (e) => {
-        if (e.key === "Enter" && e.ctrlKey) submitRequest();
-      });
-
-      // ─── DEBOUNCE SEARCH ───
-      let searchDebounce = null;
-      searchInput.addEventListener("input", () => {
-        clearTimeout(searchDebounce);
-        searchDebounce = setTimeout(() => {
-          const q = searchInput.value.toLowerCase().trim();
-          let found = 0;
-          wrappers.forEach((w) => {
-            const name = (w.dataset.name || "").toLowerCase();
-            const match = !q || name.includes(q);
-            w.classList.toggle("hidden", !match);
-            if (match) found++;
-          });
-          if (emptyState) emptyState.classList.toggle("show", found === 0);
-          updateDynamicCounter();
-        }, 150);
-      });
-
-      // ─── DISABLE KLIK KANAN ───
-      document.addEventListener("contextmenu", (e) => e.preventDefault());
-
-      // ─── DISABLE COPY & SELECT (kecuali di input/textarea) ───
-      document.addEventListener("copy", (e) => {
-        if (!e.target.closest("input, textarea")) e.preventDefault();
-      });
-      document.addEventListener("cut", (e) => {
-        if (!e.target.closest("input, textarea")) e.preventDefault();
-      });
-      document.addEventListener("selectstart", (e) => {
-        if (!e.target.closest("input, textarea")) e.preventDefault();
-      });
-
-      // ─── DISABLE DRAG (screenshot via drag) ───
-      document.addEventListener("dragstart", (e) => e.preventDefault());
-
-      // ─── DISABLE KEYBOARD SHORTCUT ───
-      document.addEventListener("keydown", (e) => {
-        const k = e.key;
-        const ctrl = e.ctrlKey || e.metaKey;
-        const shift = e.shiftKey;
-        if (k === "F12") {
-          e.preventDefault();
-          return;
-        }
-        if (ctrl && k === "u") {
-          e.preventDefault();
-          return;
-        }
-        if (ctrl && k === "s") {
-          e.preventDefault();
-          return;
-        }
-        if (ctrl && k === "p") {
-          e.preventDefault();
-          return;
-        }
-        if (ctrl && k === "a") {
-          e.preventDefault();
-          return;
-        }
-        if (ctrl && k === "c") {
-          e.preventDefault();
-          return;
-        }
-        if (ctrl && shift && ["i", "j", "c"].includes(k.toLowerCase())) {
-          e.preventDefault();
-          return;
-        }
-      });
-
-      // ─── ANTI-DEBUGGING / FREEZE LOOP ───
-      setInterval(function () {
-        (function freeze() {
-          const func = function () {
-            eval("debugger");
-          };
-          func();
-        })();
-      }, 200);
-
-      // ─── SCROLL TO TOP LOGIC ───
-      const scrollTopBtn = document.getElementById("scroll-top");
-
-      window.addEventListener("scroll", () => {
-        const isAtBottom =
-          window.innerHeight + window.scrollY >=
-          document.documentElement.scrollHeight - 8;
-
-        if (isAtBottom) {
-          scrollTopBtn.classList.add("show");
-        } else {
-          scrollTopBtn.classList.remove("show");
-        }
-      });
-
-      function scrollToTop() {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      }
-
-      // ─── REGISTER SW ───
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./sw.js").catch(() => {});
-      }
-    </script>
+    <script src="./app.js"></script>
+    
   </body>
 </html>
