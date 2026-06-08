@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /app.js
+Disallow: /app.dev.js
+Disallow: /.well-known/
+
+Sitemap: https://aionyx-labs.github.io/sitemap.xml
