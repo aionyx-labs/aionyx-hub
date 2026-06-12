@@ -139,6 +139,94 @@
         background: rgba(14, 100, 180, 0.03) !important;
         border-color: rgba(14, 100, 180, 0.15) !important;
       }
+      .feedback-strip {
+        border-top: 1px dashed var(--border);
+        padding: 24px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+      .feedback-label {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .feedback-btns {
+        display: flex;
+        gap: 12px;
+      }
+      .feedback-btn {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-dim);
+        border-radius: 999px;
+        padding: 7px 20px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: var(--font-body);
+      }
+      .feedback-btn:hover {
+        border-color: var(--cyan);
+        color: var(--cyan);
+      }
+      .feedback-btn.like:hover { border-color: #22c55e; color: #22c55e; }
+      .feedback-btn.dislike:hover { border-color: #ef4444; color: #ef4444; }
+      .feedback-response {
+        font-size: 0.82rem;
+        color: var(--text-dim);
+        text-align: center;
+        display: none;
+      }
+      .feedback-dislike-form {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        max-width: 420px;
+      }
+      .feedback-textarea {
+        width: 100%;
+        background: rgba(4, 14, 30, 0.5);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px 14px;
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 0.82rem;
+        resize: none;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .feedback-textarea:focus { border-color: var(--cyan); }
+      .feedback-submit {
+        background: transparent;
+        border: 1px solid var(--cyan);
+        color: var(--cyan);
+        border-radius: 999px;
+        padding: 6px 20px;
+        font-size: 0.82rem;
+        cursor: pointer;
+        font-family: var(--font-body);
+        transition: all 0.2s;
+      }
+      .feedback-submit:hover { background: var(--cyan); color: var(--void); }
+      .feedback-strip { border-top: 1px dashed var(--border); padding: 24px 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+      .feedback-label { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+      .feedback-btns { display: flex; gap: 12px; }
+      .feedback-btn { background: transparent; border: 1px solid var(--border); color: var(--text-dim); border-radius: 999px; padding: 7px 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; font-family: var(--font-body); }
+      .feedback-btn.like:hover { border-color: #22c55e; color: #22c55e; }
+      .feedback-btn.dislike:hover { border-color: #ef4444; color: #ef4444; }
+      .feedback-response { font-size: 0.82rem; color: var(--text-dim); text-align: center; display: none; }
+      .feedback-dislike-form { display: none; flex-direction: column; align-items: center; gap: 10px; width: 100%; max-width: 420px; }
+      .feedback-textarea { width: 100%; background: rgba(4, 14, 30, 0.5); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; color: var(--text); font-family: var(--font-body); font-size: 0.82rem; resize: none; outline: none; transition: border-color 0.2s; }
+      .feedback-textarea:focus { border-color: var(--cyan); }
+      .feedback-submit { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); border-radius: 999px; padding: 6px 20px; font-size: 0.82rem; cursor: pointer; font-family: var(--font-body); transition: all 0.2s; }
+      .feedback-submit:hover { background: var(--cyan); color: var(--void); }
+      [data-theme="light"] #version-box .log-v113,
       [data-theme="light"] #version-box .log-v112 {
         color: #0d1f35 !important;
       }
@@ -1402,54 +1490,57 @@
             <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 24px; text-align: center;">System Ledger / Version History</div>
             <div id="version-box" style="display: flex; flex-direction: column; gap: 24px; font-family: var(--font-mono); font-size: 0.78rem; max-width: 680px; max-height: 260px; overflow-y: auto; margin: 0 auto; line-height: 1.6; background: rgba(4, 14, 30, 0.3); border: 1px solid var(--border); border-radius: 12px; padding: 20px; padding-right: 24px;">
               <div>
-                <div style="color: var(--neon); font-weight: 700; margin-bottom: 6px;">[ v1.12 ] — Cross-Tool Visitor Pipeline Expansion</div>
-                <ul class="log-v112" style="list-style-type: square; margin-left: 20px; color: var(--text); display: flex; flex-direction: column; gap: 4px;">
-                  <li>Propagated Firebase total_views increment across all 3 external tool nodes — generator-lj, konverter-terbilang, compress-zjpg.</li>
-                  <li>Migrated generator-lj Firebase instance from deprecated generator-lj-rtdb to unified aionyx-hub-rtdb project.</li>
-                  <li>Stripped version display tags from all external tool interfaces — version tracking centralized exclusively to portal.</li>
-                  <li>Patched CSP headers on generator-lj and konverter-terbilang to authorize aionyx-hub Firebase domain endpoints.</li>
+                <div style="color: var(--neon); font-weight: 700; margin-bottom: 6px;">[ v1.13 ] — Visitor Counter Fix & Upload Format Guard</div>
+                <ul class="log-v113" style="list-style-type: square; margin-left: 20px; color: var(--text); display: flex; flex-direction: column; gap: 4px;">
+                  <li>Fixed visitor counter incorrectly resetting to 1 on every page refresh — now shows accurate total across all visits.</li>
+                  <li>Visitor count now loads the correct real-time value immediately on page open.</li>
+                  <li>Compress ZJPG now only accepts JPG, JPEG, PNG, and WEBP — unsupported formats are blocked with an inline error notice.</li>
+                  <li>Updated Compress ZJPG tool description to clearly list all supported formats.</li>
                 </ul>
               </div>
               <div>
-                <div style="color: var(--cyan); font-weight: 700; margin-bottom: 6px;">[ v1.11 ] — Visitor Telemetry Integration</div>
+                <div style="color: var(--cyan); font-weight: 700; margin-bottom: 6px;">[ v1.12 ] — Visitor Counter Across All Tools</div>
+                <ul class="log-v112" style="list-style-type: square; margin-left: 20px; color: var(--text-dim); display: flex; flex-direction: column; gap: 4px;">
+                  <li>Visitor count is now tracked across all tools — every visit to any tool contributes to the total portal counter.</li>
+                  <li>Version history is now centralized exclusively on the main portal — individual tools no longer show version tags.</li>
+                </ul>
+              </div>
+              <div>
+                <div style="color: var(--cyan); font-weight: 700; margin-bottom: 6px;">[ v1.11 ] — Live Visitor Counter</div>
                 <ul class="log-v111" style="list-style-type: square; margin-left: 20px; color: var(--text-dim); display: flex; flex-direction: column; gap: 4px;">
-                  <li>Deployed centralized cross-node visitor telemetry pipeline via Firebase Realtime Database under isolated aionyx-hub project instance.</li>
-                  <li>Integrated unified total_views counter accumulator across all active tool nodes — portal, generator-lj, konverter-terbilang, compress-zjpg.</li>
-                  <li>Mounted live visitor badge indicator inline within Tools Collection section label header.</li>
-                  <li>Fix Problem: Resolved duplicate statement injection in app.js execution thread causing runtime evaluation crash at line 347.</li>
+                  <li>Added a live visitor counter badge visible in the Tools Collection section.</li>
+                  <li>Counter is shared and synced in real-time across all active tool pages.</li>
+                  <li>Fixed a bug causing the page to crash on load in certain conditions.</li>
                 </ul>
               </div>
               <div>
-                <div style="color: var(--cyan); font-weight: 700; margin-bottom: 6px;">[ v1.10 ] — Interface Interaction Refinement</div>
+                <div style="color: var(--cyan); font-weight: 700; margin-bottom: 6px;">[ v1.10 ] — Settings Panel Improvement</div>
                 <ul class="log-v110" style="list-style-type: square; margin-left: 20px; color: var(--text-dim); display: flex; flex-direction: column; gap: 4px;">
-                  <li>Engineered secondary cursor hover intent sensors with an extended 700ms activation delay across settings panels.</li>
-                  <li>Isolated parameter selection click bubbling mechanics to successfully maintain panel visibility persistence during active runtime theme reconfiguration.</li>
-                  <li>Fix Problem: Extracted duplicate scope identifiers causing core thread evaluation crashes and fully restored unstyled element fallbacks.</li>
+                  <li>Settings panel now opens with a smooth hover delay — less accidental triggers.</li>
+                  <li>Theme selection no longer closes the panel unexpectedly while switching.</li>
+                  <li>Fixed a crash that occurred when the settings panel was opened in certain states.</li>
                 </ul>
               </div>
               <div>
-                <div style="color: var(--cyan); font-weight: 700; margin-bottom: 6px;">[ v1.09 ] — Execution Node Optimization</div>
+                <div style="color: var(--cyan); font-weight: 700; margin-bottom: 6px;">[ v1.09 ] — About Page & UI Polish</div>
                 <ul class="log-v109" style="list-style-type: square; margin-left: 20px; color: var(--text-dim); display: flex; flex-direction: column; gap: 4px;">
-                  <li>Reconstructed the structural 'About' node layout schema to dynamically replace the core sub-hero view matrix.</li>
-                  <li>Embedded micro-vector SVG technical graphics directly within the primary system viewport.</li>
-                  <li>Recalibrated the absolute scroll-to-top execution activation thresholds closer to baseline layout parameters.</li>
-                  <li>Fix Problem: Resolved internal component view-mutation scroll dislocation utilizing manual layout restoration hooks.</li>
+                  <li>Redesigned the About section with a cleaner layout and added visual graphics.</li>
+                  <li>Scroll-to-top button now appears at a more natural scroll position.</li>
+                  <li>Fixed a scroll position bug when switching between navigation views.</li>
                 </ul>
               </div>
               <div>
-                <div style="color: var(--cyan-dim); font-weight: 700; margin-bottom: 6px;">[ v1.08 ] — Core Layout Expansion</div>
+                <div style="color: var(--cyan-dim); font-weight: 700; margin-bottom: 6px;">[ v1.08 ] — Mobile Layout Fix</div>
                 <ul class="log-v108" style="list-style-type: square; margin-left: 20px; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px;">
-                  <li>Expanded structural layout master container properties to enforce a 100% full-bleed edge-to-edge width configuration.</li>
-                  <li>Integrated continuous fluid breakpoint rules for optimized application visibility across compact mobile viewports.</li>
-                  <li>Fix Problem: Remedied unpredictable global container horizontal overflow rendering defects on application compression.</li>
+                  <li>Layout now stretches correctly to full screen width on all screen sizes.</li>
+                  <li>Fixed horizontal overflow issue causing unwanted side-scroll on mobile devices.</li>
                 </ul>
               </div>
               <div>
-                <div style="color: var(--text-muted); font-weight: 700; margin-bottom: 6px;">[ v1.05 ] — Environment Security Deployment</div>
+                <div style="color: var(--text-muted); font-weight: 700; margin-bottom: 6px;">[ v1.05 ] — Security Hardening</div>
                 <ul class="log-v105" style="list-style-type: square; margin-left: 20px; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px;">
-                  <li>Deployed proactive client-side resource encapsulation protocols including selective text and context duplication inhibitors.</li>
-                  <li>Engineered automated environment protection routines initializing recursive runtime debugging freeze loops.</li>
-                  <li>Fix Problem: Overrode strict Content Security Policy (CSP) inline evaluation blockages affecting remote script authentications.</li>
+                  <li>Added protections to prevent content copying and right-click inspection on the portal.</li>
+                  <li>Strengthened security policies to block unauthorized script execution.</li>
                 </ul>
               </div>
               <div>
@@ -1619,7 +1710,7 @@
               </div>
             </div>
             <p class="card-desc">
-              Kompres gambar ke ukuran target (KB/MB) langsung di browser. Tanpa upload ke server, tanpa akun — privasi terjaga penuh.
+              Kompres gambar ke ukuran target (KB/MB) langsung di browser. Mendukung format JPG, JPEG, PNG, dan WEBP.
             </p>
             <div class="card-footer">
               <a href="https://aionyx-labs.github.io/compress-zjpg/" class="btn-launch" target="_blank" rel="noopener noreferrer">Open <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10" /></svg></a>
@@ -1755,7 +1846,7 @@
           <div class="footer-col">
             <h3 class="footer-title">System</h3>
             <ul class="footer-links">
-              <li>📦 Version <span>v1.12</span></li>
+              <li>📦 Version <span>v1.13</span></li>
               <li>🛠 Status <span style="color: var(--cyan)">Active</span></li>
               <li>🌐 Independent Host</li>
               <li>🔒 No Trackers / Ads</li>
@@ -1809,6 +1900,32 @@
           </div>
         </div>
 
+        <div class="feedback-strip" id="feedback-strip">
+          <div class="feedback-label">Was this portal helpful?</div>
+          <div class="feedback-btns" id="feedback-btns">
+            <button class="feedback-btn like" id="feedback-like">👍 Helpful</button>
+            <button class="feedback-btn dislike" id="feedback-dislike">👎 Not really</button>
+          </div>
+          <div class="feedback-response" id="feedback-response"></div>
+          <div class="feedback-dislike-form" id="feedback-dislike-form">
+            <textarea class="feedback-textarea" id="feedback-text" rows="3" placeholder="What could be better? (optional)"></textarea>
+            <button class="feedback-submit" id="feedback-submit">Send Feedback</button>
+          </div>
+        </div>
+
+        <div class="feedback-strip" id="feedback-strip">
+          <div class="feedback-label">Was this portal helpful?</div>
+          <div class="feedback-btns" id="feedback-btns">
+            <button class="feedback-btn like" id="feedback-like">👍 Helpful</button>
+            <button class="feedback-btn dislike" id="feedback-dislike">👎 Not really</button>
+          </div>
+          <div class="feedback-response" id="feedback-response"></div>
+          <div class="feedback-dislike-form" id="feedback-dislike-form">
+            <textarea class="feedback-textarea" id="feedback-text" rows="3" placeholder="What could be better? (optional)"></textarea>
+            <button class="feedback-submit" id="feedback-submit">Send Feedback</button>
+          </div>
+        </div>
+
         <div class="footer-bottom">
           © 2026 <span>Zechron Aionyx</span> · Aionyx Hub · All tools
           handcrafted &amp; self-hosted
@@ -1836,6 +1953,7 @@
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
+        window.db = db;
         const totalRef = db.ref("total_views");
         const now = Date.now();
         const lastVisit = localStorage.getItem("aionyx_last_visit");
